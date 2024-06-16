@@ -1,0 +1,26 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ContactsBook.MainPage"
+             xmlns:vm="clr-namespace:ContactsBook.ViewModels"
+             Title="Contacts Book">
+
+    <ContentPage.BindingContext>
+        <vm:ContactsViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Contacts}" SelectionMode="Single" SelectedItem="{Binding SelectedContact}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Name}" />
+                        <Label Text="{Binding Phone}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Add Contact" Command="{Binding AddCommand}" />
+        <Button Text="Delete Contact" Command="{Binding DeleteCommand}" IsEnabled="{Binding SelectedContact, Converter={StaticResource NullToBooleanConverter}}" />
+    </StackLayout>
+
+</ContentPage>
